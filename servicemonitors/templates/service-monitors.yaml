@@ -12,11 +12,11 @@ items:
       {{- if .labels.k8sapp }}
       k8s-app:  {{ .labels.k8sapp }}
       {{- end }}
-{{ include "labels.stakater" $ | indent 6 }}
-{{ include "labels.chart" $ | indent 6  }}
+{{ include "servicemonitors.labels.stakater" $ | indent 6 }}
+{{ include "servicemonitors.labels.chart" $ | indent 6  }}
     {{- else }}
-{{ include "labels.stakater" $ | indent 6 }}
-{{ include "labels.chart" $ | indent 6  }}    
+{{ include "servicemonitors.labels.stakater" $ | indent 6 }}
+{{ include "servicemonitors.labels.chart" $ | indent 6  }}    
     {{- end }}
   {{- end }}
   {{- with .spec }}
