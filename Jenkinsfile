@@ -4,6 +4,6 @@
 def dummy = ""
 
 prepareAndUploadCharts {
-    charts = [ "k8s-servicemonitors" ]
+    charts = [ "servicemonitors" ]
     isPublic = true
 }

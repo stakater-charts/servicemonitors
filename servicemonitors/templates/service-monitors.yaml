@@ -2,15 +2,15 @@ apiVersion: v1
 kind: List
 items:
 {{- range .Values.serviceMonitors }}
-- apiVersion: {{ .apiVersion }}
-  kind: {{ .kind }}
+- apiVersion: "monitoring.coreos.com/v1"
+  kind: ServiceMonitor
   {{- with .metadata }}
   metadata:
-    name: {{ $.Release.Namespace }}-{{ .name }}
+    name: {{ .name }}
     labels:
     {{- if .labels }}    
       {{- if .labels.k8sapp }}
-      k8s-app: {{ $.Release.Namespace }}-{{ .labels.k8sapp }}
+      k8s-app:  {{ .labels.k8sapp }}
       {{- end }}
 {{ include "labels.stakater" $ | indent 6 }}
 {{ include "labels.chart" $ | indent 6  }}

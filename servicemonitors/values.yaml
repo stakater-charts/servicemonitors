@@ -1,8 +1,11 @@
-# replace k8s-app with k8sapp in values in labels
+k8sServicemonitors:
+  labels:
+    group: com.stakater.platform
+    provider: stakater
+    version: 2.2.0-rc.0
+
 serviceMonitors:
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: prometheus-operator
     labels:      
       k8sapp: prometheus-operator
@@ -13,9 +16,7 @@ serviceMonitors:
     endpoints:
     - port: http
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: prometheus
     labels:
       k8s-app: prometheus      
@@ -30,9 +31,7 @@ serviceMonitors:
     - port: web
       interval: 30s 
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: node-exporter
     labels:
       k8sapp: node-exporter      
@@ -48,9 +47,7 @@ serviceMonitors:
     - port: http-metrics
       interval: 30s
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: kubelet
     labels:
       k8sapp: kubelet      
@@ -68,9 +65,7 @@ serviceMonitors:
       honorLabels: true
 
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: kube-state-metrics
     labels:
       k8sapp: kube-state-metrics      
@@ -87,9 +82,7 @@ serviceMonitors:
       interval: 30s
       honorLabels: true
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: kube-dns
     labels:
       k8sapp: kube-dns      
@@ -107,9 +100,7 @@ serviceMonitors:
     - port: http-metrics-dnsmasq
       interval: 30s
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: alertmanager
     labels:
       k8sapp: alertmanager      
@@ -124,9 +115,7 @@ serviceMonitors:
     - port: web
       interval: 30s
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: kube-apiserver
     labels:      
       k8sapp: apiserver
@@ -148,9 +137,7 @@ serviceMonitors:
         serverName: kubernetes
       bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: kube-controller-manager
     labels:      
       k8sapp: kube-controller-manager
@@ -166,9 +153,7 @@ serviceMonitors:
     - port: http-metrics
       interval: 30s
 
-- apiVersion: "monitoring.coreos.com/v1"
-  kind: ServiceMonitor
-  metadata:
+- metadata:
     name: kube-scheduler
     labels:      
       k8sapp: kube-scheduler
@@ -183,23 +168,3 @@ serviceMonitors:
     namespaceSelector:
       matchNames:
       - kube-system
-
-k8sServicemonitors:
-  labels:
-    group: com.stakater.platform
-    provider: stakater
-    version: 2.2.0-rc.0
-  namespace: dev
-  image:
-    tag: v2.2.0-rc.0
-  apiserver:
-    crtFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-    token: /var/run/secrets/kubernetes.io/serviceaccount/token
-    namespaceSelector:
-    - default
-  kubeControllerManager:
-    namespaceSelector:
-    - kube-system
-  kubeScheduler:
-    namespaceSelector:
-    - kube-system
