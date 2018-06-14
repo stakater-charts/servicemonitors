@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: List
+items:
+{{- range .Values.serviceMonitors }}
+- apiVersion: {{ .apiVersion }}
+  kind: {{ .kind }}
+  {{- with .metadata }}
+  metadata:
+    name: {{ $.Release.Namespace }}-{{ .name }}
+    labels:
+    {{- if .labels }}    
+      {{- if .labels.k8sapp }}
+      k8s-app: {{ $.Release.Namespace }}-{{ .labels.k8sapp }}
+      {{- end }}
+{{ include "labels.stakater" $ | indent 6 }}
+{{ include "labels.chart" $ | indent 6  }}
+    {{- else }}
+{{ include "labels.stakater" $ | indent 6 }}
+{{ include "labels.chart" $ | indent 6  }}    
+    {{- end }}
+  {{- end }}
+  {{- with .spec }}
+  spec:
+    jobLabel: {{ .jobLabel }}
+    {{- with .selector }}
+    selector:
+      {{- with .matchLabels }}
+      matchLabels:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+    {{- end }}
+    {{- with .namespaceSelector }}
+    namespaceSelector:
+      {{- with .matchNames }}
+      matchNames:
+      {{- range . }}
+      - {{ . }}
+      {{- end }}        
+      {{- end }}
+    {{- end }}    
+    endpoints:  
+{{ toYaml .endpoints | indent 6 }}     
+  {{- end }}
+{{- end }}
