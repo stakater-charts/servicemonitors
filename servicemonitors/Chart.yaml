@@ -5,7 +5,7 @@ version: 1.0.1
 keywords:
   - servicemonitors
   - kubernetes
-home: https://github.com/stakater/chart-k8s-servicemonitors
+home: https://github.com/stakater/chart-servicemonitors
 maintainers:
 - name: Stakater
   email: stakater@aurorasolutions.io
