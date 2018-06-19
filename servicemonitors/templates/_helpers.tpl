@@ -3,7 +3,19 @@
 Expand the name of the chart.
 */}}
 {{- define "servicemonitors.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- default .Chart.Name .Values.k8sServicemonitors.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+# ServiceMonitor
+{{- define "monitoring.labels.selector-sm" -}}
+app: {{ template "servicemonitors.name" . }}-servicemonitor
+{{ template "monitoring.servicemonitors.labels.groupAndProvider" . }}
+{{- end -}}
+
+# Common
+{{- define "monitoring.servicemonitors.labels.groupAndProvider" -}}
+group: {{ .Values.k8sServicemonitors.labels.group }}
+provider: {{ .Values.k8sServicemonitors.labels.provider }}
 {{- end -}}
 
 {{/*
@@ -15,14 +27,14 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "servicemonitors.labels.selector" -}}
-app: {{ template "servicemonitors.name" . }}
-group: {{ .Values.k8sServicemonitors.labels.group }}
-provider: {{ .Values.k8sServicemonitors.labels.provider }}
-{{- end -}}
+#{{- define "servicemonitors.labels.selector" -}}
+#app: {{ template "servicemonitors.name" . }}
+#group: {{ .Values.k8sServicemonitors.labels.group }}
+#provider: {{ .Values.k8sServicemonitors.labels.provider }}
+#{{- end -}}
 
 {{- define "servicemonitors.labels.stakater" -}}
-{{ template "servicemonitors.labels.selector" . }}
+{{ template "monitoring.labels.selector-sm" . }}
 version: "{{ .Values.k8sServicemonitors.labels.version }}"
 {{- end -}}
 
