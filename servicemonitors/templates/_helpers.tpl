@@ -35,7 +35,6 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 {{- define "servicemonitors.labels.stakater" -}}
 {{ template "monitoring.labels.selector-sm" . }}
-version: "{{ .Values.k8sServicemonitors.labels.version }}"
 {{- end -}}
 
 {{- define "servicemonitors.labels.chart" -}}
