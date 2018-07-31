@@ -6,6 +6,29 @@ k8sServicemonitors:
     version: 2.2.0-rc.0
 
 serviceMonitors:
+
+- metadata:
+    name: kube-controllers
+    labels:
+      k8sapp: kube-controllers
+  spec:
+    selector:
+      matchLabels:
+        k8s-app: kube-controllers
+    endpoints:
+    - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      interval: 30s
+      port: http-metrics
+      scheme: https
+      tlsConfig:
+        caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    jobLabel: k8s-app
+    namespaceSelector:
+      matchNames:
+      - kube-system
+    
+
+
 - metadata:
     name: prometheus-operator
     labels:      
