@@ -5,7 +5,7 @@ version: 0.0.4
 keywords:
   - servicemonitors
   - kubernetes
-home: https://github.com/stakater/chart-servicemonitors
+home: https://github.com/stakater-charts/servicemonitors
 maintainers:
 - name: Stakater
   email: hello@stakater.com
