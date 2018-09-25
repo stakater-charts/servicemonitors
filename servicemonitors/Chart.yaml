@@ -1,7 +1,7 @@
 apiVersion: v1
 name: servicemonitors
 description: servicemonitors chart that runs on kubernetes
-version: 0.0.4
+version: 0.0.5
 keywords:
   - servicemonitors
   - kubernetes
