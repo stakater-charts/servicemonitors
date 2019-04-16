@@ -21,7 +21,7 @@ items:
   {{- end }}
   {{- with .spec }}
   spec:
-    jobLabel: {{ .jobLabel }}
+    jobLabel: {{ .jobLabel | default "k8s-app" | quote }}
     {{- with .selector }}
     selector:
       {{- with .matchLabels }}
